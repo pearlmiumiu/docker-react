@@ -1,0 +1,28 @@
+- create both dev docker file and build docker file, put into two seperate containers. one for dev, one for build
+
+- docker build -f Dockerfile.dev. ==> filter out specific file we build. default is Dockerfile.
+
+- docker run -p 3000:3000 + imageId (map port to localhost)
+
+- docker volumes: reflect changes immeditatly without rebuild image and rebuild container
+
+ cmd: docker run -p 3000:3000 -v /app/node_modules -v $(pwd):/app <image_id>
+---> put a book marker on the app/node_modules make sure it wont map to any local directiory(as our current local directory does not have node_modules folder)
+
+react server in the contaienr can see the changes instantly so it update pages immediately after we make changes
+
+//map 3000 outside the container to 3000 inside the container
+
+-- we run docker run CLI we get a connection to stardard out inside the container(like a terminal inside the container) but for us to actually trigger where we get any input into the container itself, we have to hook up to standard in as well. we can do so by adding -it to docker run
+
+
+docker exec -it 527b5b28f077 npm run test -->  run test inside the previous container
+
+create docker files thats multi-step
+- build phase
+- run phase
+dependeny only required when we build the paplication. after we build the applicatio, the dependencey is not required.
+
+nginx: taking incoming traffic and routing it or somehow respond to it with static html files. its for production server. just serve static content.
+
+

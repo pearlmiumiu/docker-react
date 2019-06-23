@@ -1,0 +1,20 @@
+version: '3'
+services:
+  web:
+    # not use build : . ---> becz dockerfile is deockerfile.dev now
+    build: 
+      context: . #where we find all the files our image will poll from
+      dockerfile: Dockerfile.dev    # location of docerfile that will be used to construct the image
+    ports:
+      - "3000:3000" 
+    volumes:
+      - /app/node_modeles #do't try to map a folder up against app/node_models inside container
+      - .:/app # . map that current folder outside te container into the app folder inside the
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node-modules
+      - .:/app
+    command: ["npm","run","test"]
